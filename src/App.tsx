@@ -1,20 +1,15 @@
-import "./App.css";
-import { Button } from "./components/ui/button";
-import {
-  decrement,
-  increment,
-  selectCount,
-} from "./Redux/features/counterSlice";
-import { useAppDispatch, useAppSelector } from "./Redux/hook";
+import { Outlet } from "react-router-dom";
+import Navbar from "./components/layout/Navbar";
+
 
 function App() {
-  const count = useAppSelector(selectCount);
-  const dispatch = useAppDispatch();
+  // const count = useAppSelector(selectCount);
+  // const dispatch = useAppDispatch();
 
   return (
     <>
       <div>
-        <div>
+        {/* <div>
           <Button
             className="cursor-pointer"
             onClick={() => dispatch(increment())}
@@ -28,7 +23,10 @@ function App() {
           >
             Decrement
           </Button>
-        </div>
+        </div> */}
+
+        <Navbar></Navbar>
+        <Outlet></Outlet>
       </div>
     </>
   );
