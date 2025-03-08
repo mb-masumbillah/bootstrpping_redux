@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "./features/counterSlice";
-import longer from "./middleware/logger";
+import counterReducer from "./features/Counter/counterSlice";
+// import longer from "./middleware/logger";
+import TaskReducer from "./features/Task/TaskSlice"
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
+    todo: TaskReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(longer),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(longer),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

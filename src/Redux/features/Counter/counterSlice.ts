@@ -1,5 +1,6 @@
+import { RootState } from "@/Redux/sotre";
 import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../sotre";
+
 
 const initialState = {
   value: 0,
