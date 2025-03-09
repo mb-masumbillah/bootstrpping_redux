@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className="max-w-7xl mx-auto">
         {/* <div>
           <Button
             className="cursor-pointer"

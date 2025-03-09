@@ -17,6 +17,14 @@ const initialState: InitializeState = {
       isCompleted: false,
       priority: "High",
     },
+    {
+      id: "02",
+      title: "git repo",
+      description: "Create store branch",
+      dueDate: "2025-11",
+      isCompleted: false,
+      priority: "Medium",
+    },
   ],
   filter: "all",
 };
