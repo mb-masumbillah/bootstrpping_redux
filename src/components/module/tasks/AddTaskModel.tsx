@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -31,17 +30,23 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { addTask } from "@/Redux/features/Task/TaskSlice";
+import { useAppDispatch } from "@/Redux/hook";
+import { ITask } from "@/types";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 export function AddTaskModel() {
   const form = useForm();
 
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const dispatch = useAppDispatch();
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    dispatch(addTask(data as ITask));
   };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -55,10 +60,10 @@ export function AddTaskModel() {
           <DialogTitle>Add Task</DialogTitle>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormField
               control={form.control}
-              name="Title"
+              name="title"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Title</FormLabel>
@@ -84,7 +89,7 @@ export function AddTaskModel() {
               control={form.control}
               name="priority"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormLabel>Priority</FormLabel>
 
                   <Select
@@ -92,19 +97,24 @@ export function AddTaskModel() {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full">
+                        {" "}
+                        {/* এখানে প্রস্থ 300px করা হয়েছে */}
                         <SelectValue placeholder="Select a Priority set" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
+                    <SelectContent className="w-full">
+                      {" "}
+                      {/* এখানে প্রস্থ 300px করা হয়েছে */}
                       <SelectItem value="Low">Low</SelectItem>
                       <SelectItem value="Medium">Medium</SelectItem>
-                      <SelectItem value="Hight">Hight</SelectItem>
+                      <SelectItem value="High">High</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="dob"
@@ -117,7 +127,7 @@ export function AddTaskModel() {
                         <Button
                           variant={"outline"}
                           className={cn(
-                            "w-[240px] pl-3 text-left font-normal",
+                            " pl-3 text-left font-normal",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -135,9 +145,9 @@ export function AddTaskModel() {
                         mode="single"
                         selected={field.value}
                         onSelect={field.onChange}
-                        disabled={(date) =>
-                          date > new Date() || date < new Date("1900-01-01")
-                        }
+                        // disabled={(date) =>
+                        //   date > new Date() || date < new Date("1900-01-01")
+                        // }
                         initialFocus
                       />
                     </PopoverContent>
