@@ -1,7 +1,7 @@
 
 import AddUserModel from "@/components/module/tasks/AddUserModel";
 import UserCard from "@/components/module/tasks/UserCard";
-import { selectUser } from "@/Redux/features/User/userSlice";
+import { selectUser } from "@/Redux/features/User/UserSlice";
 import { useAppSelector } from "@/Redux/hook";
 
 const User = () => {

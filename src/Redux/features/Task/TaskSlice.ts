@@ -61,8 +61,11 @@ const taskSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(removeUser, (state, action) => {
-      state.tasks.forEach((task) =>
-        task.assignedUser === action.payload ? (task.assignedUser = null) : task
+      console.log("ss",action.payload)
+      state.tasks = state.tasks.map((task) =>
+        task.assignedUser === action.payload
+          ? { ...task, assignedUser: null }
+          : task
       );
     });
   },
