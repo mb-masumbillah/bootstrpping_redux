@@ -31,7 +31,8 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { addTask } from "@/Redux/features/Task/TaskSlice";
-import { useAppDispatch } from "@/Redux/hook";
+import { selectUser } from "@/Redux/features/User/userSlice";
+import { useAppDispatch, useAppSelector } from "@/Redux/hook";
 import { ITask } from "@/types";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { format } from "date-fns";
@@ -42,6 +43,7 @@ export function AddTaskModel() {
   const form = useForm();
 
   const dispatch = useAppDispatch();
+  const user = useAppSelector(selectUser);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     dispatch(addTask(data as ITask));
@@ -87,6 +89,32 @@ export function AddTaskModel() {
             />
             <FormField
               control={form.control}
+              name="assignedUser"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Assigned User</FormLabel>
+
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        {" "}
+                        <SelectValue placeholder="Select a Priority set" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent className="w-full">
+                      {user.map((u) => (
+                        <SelectItem value={u.name}>{u.name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="priority"
               render={({ field }) => (
                 <FormItem className="w-full">
@@ -99,13 +127,11 @@ export function AddTaskModel() {
                     <FormControl>
                       <SelectTrigger className="w-full">
                         {" "}
-                        {/* এখানে প্রস্থ 300px করা হয়েছে */}
                         <SelectValue placeholder="Select a Priority set" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="w-full">
                       {" "}
-                      {/* এখানে প্রস্থ 300px করা হয়েছে */}
                       <SelectItem value="Low">Low</SelectItem>
                       <SelectItem value="Medium">Medium</SelectItem>
                       <SelectItem value="High">High</SelectItem>
